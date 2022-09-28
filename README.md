@@ -33,7 +33,7 @@
 
 2 - API de PRODUTO. CAMPOS ( CODIGO, DESCRICAO, UNIDADE, PRECO, SALDO ).
 
-3 - Criar o processo para realizgit push -u origin DownloadManagerar o CRUD do PEDIDO.
+3 - Criar o processo para realizg o CRUD do PEDIDO.
 
 * CAB_PEDIDO ( NUMERO, DATA, VALOR, TIPO PAGAMENTO, FK CLIENTE ).
 
