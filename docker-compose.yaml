@@ -1,0 +1,25 @@
+version: '3.7' # versão do compose que conversa com a engine do Docker
+
+volumes:
+  db_data:
+  rabbitmq_data:
+
+services:
+  db:
+    build: .docker/postgres
+    container_name: todimo-db
+    restart: always
+    tty: true
+    networks:
+      - todimo
+    volumes:
+      - ./.docker/postgres/db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: 'todimo'
+      POSTGRES_USER: 'todimo'
+      POSTGRES_PASSWORD: 'todimo'
+
+networks:
+  todimo:
