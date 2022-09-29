@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DummyUserClient } from './clients';
+import { DummyProductClient, DummyUserClient } from './clients';
 import DummyConfig from './configs/dummy.config';
 
 @Module({
@@ -21,7 +21,7 @@ import DummyConfig from './configs/dummy.config';
       },
     }),
   ],
-  providers: [DummyUserClient],
-  exports: [DummyUserClient],
+  providers: [DummyUserClient, DummyProductClient],
+  exports: [DummyUserClient, DummyProductClient],
 })
 export class DummyModule {}
