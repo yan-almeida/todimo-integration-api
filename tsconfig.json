@@ -23,6 +23,12 @@
       ],
       "@app/commons/*": [
         "libs/commons/src/*"
+      ],
+      "@app/dummy": [
+        "libs/dummy/src"
+      ],
+      "@app/dummy/*": [
+        "libs/dummy/src/*"
       ]
     }
   }

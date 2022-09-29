@@ -12,6 +12,8 @@
   },
   "moduleNameMapper": {
     "@app/commons/(.*)": "<rootDir>/../libs/commons/src/$1",
-    "@app/commons": "<rootDir>/../libs/commons/src"
+    "@app/commons": "<rootDir>/../libs/commons/src",
+    "@app/dummy/(.*)": "<rootDir>/../libs/dummy/src/$1",
+    "@app/dummy": "<rootDir>/../libs/dummy/src"
   }
 }

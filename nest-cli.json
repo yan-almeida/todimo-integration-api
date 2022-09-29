@@ -11,6 +11,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/commons/tsconfig.lib.json"
       }
+    },
+    "dummy": {
+      "type": "library",
+      "root": "libs/dummy",
+      "entryFile": "index",
+      "sourceRoot": "libs/dummy/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dummy/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {

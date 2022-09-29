@@ -21,7 +21,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/mapped-types": "*",
@@ -89,7 +91,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/commons(|/.*)$": "<rootDir>/libs/commons/src/$1"
+      "^@app/commons(|/.*)$": "<rootDir>/libs/commons/src/$1",
+      "^@app/dummy(|/.*)$": "<rootDir>/libs/dummy/src/$1"
     }
   }
 }
