@@ -25,7 +25,16 @@ export class DummyUserClient {
         catchError((error) => {
           this.logger.error(error);
 
-          throw new HttpException(error.response.data, error.response.status);
+          // {
+          // "statusCode": 409,
+          // "message": "Já existe um pedido cadastrado com o código 1422.",
+          // "error": "Conflict"
+          // }
+
+          const { status } = error.response;
+          const { message } = error.response.data;
+
+          throw new HttpException(message, status);
         }),
         map((response) => response.data),
       ),

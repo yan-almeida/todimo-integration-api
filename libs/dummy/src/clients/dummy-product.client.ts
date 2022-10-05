@@ -25,7 +25,10 @@ export class DummyProductClient {
         catchError((error) => {
           this.logger.error(error);
 
-          throw new HttpException(error.response.data, error.response.status);
+          const { status } = error.response;
+          const { message } = error.response.data;
+
+          throw new HttpException(message, status);
         }),
         map((response) => response.data),
       ),
@@ -46,7 +49,10 @@ export class DummyProductClient {
         catchError((error) => {
           this.logger.error(error);
 
-          throw new HttpException(error.response.data, error.response.status);
+          const { status } = error.response;
+          const { message } = error.response.data;
+
+          throw new HttpException(message, status);
         }),
         map((response) => response.data),
       ),

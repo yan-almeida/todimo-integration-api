@@ -7,7 +7,7 @@ export class CreateOrderItemsDto {
   @ApiProperty()
   orderCode: string;
 
-  @ApiProperty()
+  @ApiProperty({ isArray: true, type: CreateOrderItemDto })
   @ValidateNested()
   @IsArray()
   @Type(() => CreateOrderItemDto)

@@ -1,8 +1,9 @@
+import { UniqueIdentifierEntity } from '@app/commons';
 import { Order } from 'src/modules/order/entities/order.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('order_item')
-export class OrderItem {
+export class OrderItem extends UniqueIdentifierEntity {
   @Column()
   quantity: number;
 

@@ -13,7 +13,7 @@ import {
   TimeoutError,
 } from 'rxjs';
 
-const TIMEOUT_IN_SEC = 1000;
+const TIMEOUT_IN_SEC = 15000;
 
 @Injectable()
 export class TimeoutInterceptor implements NestInterceptor {

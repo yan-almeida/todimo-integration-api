@@ -1,27 +1,61 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { DummyUserClient } from '@app/dummy';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { paginate } from 'nestjs-typeorm-paginate';
+import { FilterOrderDto } from 'src/modules/order/dto/filter-order.dto';
 import { Order } from 'src/modules/order/entities/order.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+    private readonly dummyUserClient: DummyUserClient,
   ) {}
 
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    await this.validateOrderCodeAlreadyExists(createOrderDto.code);
+
+    const customer = await this.dummyUserClient.getSingleUser(
+      createOrderDto.customerId,
+    );
+
+    const order = this.orderRepository.create({
+      ...createOrderDto,
+      customerId: customer.id,
+    });
+
+    return this.orderRepository.save(order);
   }
 
-  findAll() {
-    return `This action returns all order`;
+  filterOrders(filterOrderDto: FilterOrderDto) {
+    const queryBuilder = this.orderRepository.createQueryBuilder('o');
+
+    filterOrderDto.createOrder(queryBuilder);
+    filterOrderDto.createWhere(queryBuilder);
+
+    return paginate(queryBuilder, {
+      page: filterOrderDto.page,
+      limit: filterOrderDto.limit,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string) {
+    const order = await this.orderRepository.findOneBy({
+      id,
+    });
+
+    if (!order) {
+      throw new NotFoundException();
+    }
+
+    return order;
   }
 
   async findOneBy(
@@ -36,11 +70,15 @@ export class OrderService {
     return order;
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
-  }
+  private async validateOrderCodeAlreadyExists(code: string): Promise<void> {
+    const orderAlreadyExists = await this.orderRepository.countBy({
+      code,
+    });
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+    if (orderAlreadyExists > 0) {
+      throw new ConflictException(
+        `Já existe um pedido cadastrado com o código ${code}.`,
+      );
+    }
   }
 }

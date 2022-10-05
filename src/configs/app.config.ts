@@ -1,12 +1,20 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('app', () => ({
-  port: 8037,
+  port: 3000,
   microservices: {
-    redeB2b: {
-      port: +process.env.REDE_B2B_TCP_PORT || 15684,
-      host: process.env.REDE_B2B_API_URL || 'localhost',
+    rede: {
+      port: +process.env.REDE_TCP_PORT || 15684,
+      host: process.env.REDE_API_URL || 'localhost',
     },
+    // viaVarejo: {
+    //   port: +process.env.VIA_VAREJO_PORT || 15684,
+    //   host: process.env.VIA_VAREJO_API_URL || 'https://via.varejo.sandox.com',
+    // },
+    // se encontra no seguinte arquivo: ./via-varejo.config.ts
   },
-  integrationToken: process.env.TOTVS_INTEGRATION_TOKEN || 'f5b265f7-050e-4481-a812-83626c1be27d',
 }));
+
+// app.microservices.viaVarejo
+// viaVarejo.(port|host) -> viaVarejo
+//

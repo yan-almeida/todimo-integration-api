@@ -38,7 +38,7 @@ async function bootstrap() {
     new TimeoutInterceptor(),
   );
 
-  const port = configService.get<number>('app.port');
+  const port = configService.getOrThrow<number>('app.port');
 
   await app.listen(port);
   const url = await app.getUrl();
